@@ -98,7 +98,12 @@ def build_model():
                 ))
         ])
 
- 
+    parameters = {
+          'clf__estimator__n_estimators': [200,100,50],
+          'clf__estimator__min_samples_split': [3,2,1],
+    }
+
+    cv = GridSearchCV(pipeline, param_grid=parameters, cv=2, n_jobs=-1,verbose=3) 
     return pipeline
 
 def multioutput_fscore(y_true,y_pred,beta=1):
@@ -170,6 +175,9 @@ def evaluate_model(pipeline, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    To save the ML model
+    """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
     pass
