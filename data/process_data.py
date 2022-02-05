@@ -44,6 +44,7 @@ def clean_data(df):
         
         # convert column from string to numeric
         categories[column] = categories[column].astype("int")
+        categories[column] = categories[column].map(lambda x: 1 if x > 1 else x)
     # remove existing categories column
     df.drop(["categories"],inplace=True,axis=1)
     df.drop(["original"],inplace=True,axis=1)
